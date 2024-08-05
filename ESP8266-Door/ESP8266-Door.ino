@@ -7,8 +7,8 @@ const char* password = "*";
 unsigned long sinceRebootMillis = 0;
 unsigned long relayOnMillis = 0;
 
-const long rebootInterval = 43200000; // 12 hrs = 43,200,000 millis
-
+//const long rebootInterval = 43200000; // 12 hrs = 43,200,000 millis
+const long rebootInterval = 120000; // 2 mins
 const long relayOnInterval = 1000; // 1 sec relay on. Door opens when the switch turns off
 
 
