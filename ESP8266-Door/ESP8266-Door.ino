@@ -7,8 +7,8 @@ const char* password = "*";
 unsigned long sinceRebootMillis = 0;
 unsigned long relayOnMillis = 0;
 
-//const long rebootInterval = 43200000; // 12 hrs = 43,200,000 millis
-const long rebootInterval = 120000; // 2 mins
+const long rebootInterval = 43200000; // 12 hrs = 43,200,000 millis
+//const long rebootInterval = 120000; // 2 mins
 const long relayOnInterval = 1000; // 1 sec relay on. Door opens when the switch turns off
 
 
@@ -96,48 +96,12 @@ if (currentMillis - sinceRebootMillis >=rebootInterval){
   if (!client) {
     return;
   }
-   
-  // Wait until the client sends some data
-  
-  while(!client.available()){
-    yield();
-  }
-   
-  // Read the first line of the request
-  String request = client.readStringUntil('\r');
-  
-  client.flush();
-   
-  // Match the request
- 
-  
-  if (request.indexOf("/OPEN") != -1) {
-    digitalWrite(ledPin, HIGH);
-    relayOnMillis = millis();
-relayState = HIGH;
-  }
     
-if (relayState==HIGH){
-//if (currentMillis- relayOnMillis >=relayOnInterval){
- delay(1000);
+ digitalWrite(ledPin, HIGH);
+delay(1000);
   digitalWrite(ledPin, LOW);
-   relayState=LOW;
-   //}
-}
-  
-   
-  // Return the response
-  //client.println("HTTP/1.1 200 OK");
-  //client.println("Content-Type: text/html");
-  //client.println(""); //  do not forget this one
 client.print(F("HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n<!DOCTYPE HTML>\r\n<html>\r\nOK "));
-
-
-  // close the connection:
-    client.flush();
-
-
-  
-
-  
+// close the connection:
+ client.stop();
+ client.flush();
 }
